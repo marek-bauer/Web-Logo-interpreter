@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <title>Logo</title>
+    <meta charset="utf8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="style/style.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/logo.js"></script>
+    <script src="js/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">My logo interprater</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" data-target="#instructionModal">Instructions</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" data-target="#aboutModal">About project</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <div class="text-center">
+        <canvas id="logo" height="400" width="600"></canvas>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-3">
+            <label for="minX">Min X:</label>
+            <input type="text" class="form-control sizeChanger" id="minX" value="-300">
+        </div>
+        <div class="form-group col-md-3">
+            <label for="maxX">Max X:</label>
+            <input type="text" class="form-control sizeChanger" id="maxX" value="300">
+        </div>
+        <div class="form-group col-md-3">
+            <label for="minY">Min Y:</label>
+            <input type="text" class="form-control sizeChanger" id="minY" value="-200">
+        </div>
+        <div class="form-group col-md-3">
+            <label for="maxY">Max Y:</label>
+            <input type="text" class="form-control sizeChanger" id="maxY" value="200">
+        </div>
+    </div>
+    <h4>Commands</h4>
+    <div class="form-row">
+        <textarea class="form-control col-md-10" id="ins" rows="4">
+to sq :n repeat 4 [fd :n lt 90] end
+to mul_sq :n if :n > 0 [ sq :n*10 mul_sq :n-1 ] end
+mul_sq 10
+        </textarea>
+        <input type="button" class="btn btn-primary mb-2 col-md-2" id="commit" value="Run">
+    </div>
+    <h4>History</h4>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col" style="width: 100px">#</th>
+            <th scope="col">Instruction</th>
+            <th scope="col" style="width: 100px">Command</th>
+        </tr>
+        </thead>
+        <tbody id="insHistory">
+        <tr>
+            <td>1</td>
+            <td>cs</td>
+            <td>
+                <input type="button" class="btn btn-primary" onclick="runHistory($(this))" value="Rerun">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="instructionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Instructions</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3>Moves</h3>
+                <b>forward</b> or <b>fd</b> {steps} - moves turtle forward</br>
+                <b>backward</b> or <b>bc</b> {steps} - moves turtle backward</br>
+                <b>left</b> or <b>lt</b> {degrees} - turns turtle to left</br>
+                <b>right</b> or <b>rt</b> {degrees} - turns turtle to right</br>
+                <b>pendown</b> or <b>pd</b> - starts drawing line</br>
+                <b>penup</b> or <b>pu</b> - stops drawing line</br>
+                <b>setxs</b> {x} {y} - set turtle in position</br>
+                <h3>Pen settings</h3>
+                <b>color</b> {red} {green} {blue} - sets pen color</br>
+                <b>size</b> {size} - sets pen size in pixels</br>
+                <h3>Mathematical operations</h3>
+                <b>+ / * - ^</b> - basic operators</br>
+                <b>(-</b>{number}<b>)</b> - negative number</br>
+                <b>SIN(</b>{degrees}<b>)</b> - sinus</br>
+                <b>COS(</b>{degrees}<b>)</b> - cosine</br>
+                <b>SQRT(</b>{number}<b>)</b> - square root</br>
+                <b>LN(</b>{number}<b>)</b> - natural logarithm</br>
+                <b>EXP(</b>{number}<b>)</b> - powers of e</br>
+                <h3>Logic operations</h3>
+                <b>||</b> - or</br>
+                <b>&&</b> - and</br>
+                <b>!</b> - not</br>
+                <h3>Control flow</h3>
+                <b>repeat</b> {number of repeats} [ {instructions} ]- repeat instructions</br>
+                <b>if</b> {condition} [ {instructions} ]- run if condition is true</br>
+                <b>ifelse</b> {condition} [ {instructions} ] [ {instructions} ]- run if condition is true or run another id is false</br>
+                <h3>Function definitions</h3>
+                <b>to</b> {function name} {arguments} {instructions} <b>end</b> - definition</br>
+                <b>:</b>{name 1} <b>:</b>{name 2} - definition of two arguments</br>
+                <b>to</b> myfd <b>:n</b> fd <b>:n</b> <b>end</b> - redefinition of fd</br>
+                <b>to</b> rec <b>:n</b> rec <b>:n - 1</b> <b>end</b> - definition of recursive function</br>
+                <b>myfunction</b> {argument} - calling functions
+                <h5>Others</h5>
+                <b>clearscreen</b> or <b>cs</b> - clears screen</br>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">About project</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Logo interpreter purely functional without variables.</br>
+                Written by Marek Bauer as part of Computer Graphics course</br>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
