@@ -1,2 +1,2 @@
 # Logo-interpreter
-Simple web purely functional logo interpreter
+Web purely functional logo interpreter, that supports defining your own recursive functions. 
